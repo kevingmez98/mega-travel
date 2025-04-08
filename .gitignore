@@ -1,0 +1,11 @@
+# Ignorar .env y node_modules
+backend/.env
+# Node modules
+node_modules/
+
+# Directorios de dependencias temporales
+dist/
+build/ 
+
+
+
