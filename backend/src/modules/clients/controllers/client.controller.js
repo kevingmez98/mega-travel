@@ -10,12 +10,12 @@ import ClientService from '../services/client.service.js';
  * @param {Object} res - Objeto de respuesta HTTP.
  * @returns {Object} - Lista de clientes obtenidos de la base de datos junto con la cantidad encontrada.
  */
-const getclients = async (req, res) => {
+const getclients = async (req, res, next) => {
     try {
         const results = await ClientService.getClients(req.query);
         res.status(200).json(results); //Se retornan los clientes
     } catch (err) {
-        return res.status(500).json({ error: err.message }); // 500 para errores no manejados
+       next(err); // Enviar error al middleware
     }
 }
 
@@ -27,13 +27,13 @@ const getclients = async (req, res) => {
  * @param {Object} res - Objeto de respuesta HTTP.
  * @returns {Object} - datos del cliente registrado junto con un mensaje.
  */
-const createClient = async (req, res) => {
+const createClient = async (req, res, next) => {
     try {
         // Enviar el cuerpo de la solicitud para registrar el client
         const response = await ClientService.createClient(req.body);
         res.status(201).json(response); //Se retornan los datos
     } catch (error) {
-        return res.status(500).json({ error: error.message }); // 500 para errores no manejados
+        next(error); // Enviar error al middleware
     }
 }
 

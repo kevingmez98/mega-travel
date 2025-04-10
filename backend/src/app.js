@@ -1,6 +1,7 @@
 // Configurar la aplicación express
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import { errorHandler } from './middlewares/errorHandler.js';
 import ClientRoutes from "./modules/clients/routes/clients.routes.js";
 
@@ -10,6 +11,14 @@ const app = express();
 
 // Middlewares
 app.use(express.json());
+
+// Permitir solicitudes desde el frontend
+app.use(cors({
+  origin: process.env.URL_FRONTEND, // Reemplazar con el origen del frontend
+  methods: ["GET", "POST", "PUT", "DELETE"], // Métodos HTTP permitidos
+  credentials: true, // enviar cookies o autenticación
+}));
+
 
 
 // Ruta base de prueba

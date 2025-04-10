@@ -14,6 +14,17 @@ const filterFields = (sourceData, allowedFields) => {
     return filteredData;
 };
 
+/**
+ * Utiliza expresiones regulares para verificar que un correo sea valido.
+ * @param {String} email - Email para verificar.
+ * @returns {boolean} - validacion del correo ingresado.
+ */
+const isValidEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+  
+
 export default {
-    filterFields
+    filterFields, isValidEmail
 }

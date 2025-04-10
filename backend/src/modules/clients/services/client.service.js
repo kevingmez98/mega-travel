@@ -40,13 +40,17 @@ const createClient = async (dataClient) => {
         if (!dataClient.email) missingFields.push('email');
 
         if (missingFields.length > 0) {
-            throwError(`Faltan los siguientes campos: ${missingFields.join(', ')}`);
+            throwError(`Faltan los siguientes campos: ${missingFields.join(', ')}`,400);
+        }
+        // Verificar que el correo sea valido
+        if(!utils.isValidEmail(dataClient.email)){
+            throwError(`El correo ingresado no es valido`,400);
         }
 
         // Verificar que el correo no exista
         const existing = await ClientRepository.getClients({email:dataClient.email});
         if(existing && existing.total>0){
-            throwError("El correo ya se encuentra registrado.",422)
+            throwError("El correo ya se encuentra registrado.",409)
         }
 
         // Filtrar campos permitidos 
