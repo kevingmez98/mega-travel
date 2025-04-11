@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Row, Col } from "react-bootstrap"
 import { FaUser, FaEnvelope } from 'react-icons/fa';
+import Swal from "sweetalert2";
 import Box from "../../common/elements/Box";
 import CustomButton from "../../common/elements/Button";
 import LabeledInput from "../../common/widgets/LabeledInput";
@@ -27,20 +28,19 @@ const RegisterForm = ({ onCrearCliente }) => {
         if (!clientData.email) missingFields.push('email');
 
         if (missingFields.length > 0) {
-            alert(`Faltan los siguientes campos: ${missingFields.join(', ')}`);
+            Swal.fire("Error", `Faltan los siguientes campos: ${missingFields.join(', ')}`, "error");
             return;
         }
         // Enviar los datos a la funcion
-        await onCrearCliente({
+       await onCrearCliente({
             fullName: clientData.fullName,
             email: clientData.email,
             address: clientData.address,
-        });
+        }, resetClient); //Solo se ejecuta si fue exitoso el registro
     };
 
     // Logica para manejar el cambio de algun input
     const handleChange = (e) => {
-        console.log("???");
         const { id, value } = e.target;
 
         setClientData((prev) => ({
@@ -49,10 +49,20 @@ const RegisterForm = ({ onCrearCliente }) => {
         }));
     };
 
+    // Reiniciar campos
+    const resetClient = () => {
+        setClientData({
+            fullName: "",
+            email: "",
+            address: "",
+        });
+    }
+
     return (
         <Box
             title={"Nuevo cliente"}
-            subtitle={"Registrar nuevos clientes en el sistema, ingresando información básica como nombre, contacto y dirección"}>
+            subtitle={"Registrar nuevos clientes en el sistema, ingresando información básica como nombre, contacto y dirección"}
+            className="client-box">
             <form onSubmit={handleSubmit}>
                 <Row>
                     <Col>
@@ -76,7 +86,7 @@ const RegisterForm = ({ onCrearCliente }) => {
                 </Row>
                 <div className="d-flex gap-3 buttons-margin buttons-center">
                     <CustomButton className="btn-custom-green">Agregar cliente</CustomButton>
-                    <CustomButton className="btn-custom-white">Cancelar</CustomButton>
+                    <CustomButton className="btn-custom-white" onClick={resetClient}>Cancelar</CustomButton>
                 </div>
             </form>
         </Box>

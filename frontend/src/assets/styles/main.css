@@ -4,11 +4,21 @@
     --secondary-green: #27ae60;
     --text-dark: #333;
     --bg-light: #f9f9f9;
-  }
-  
+}
+
 /*Estilos de texto*/
 .green-text {
     color: #5cb22f;
+}
+
+.text-client td,
+.text-client th {
+  font-size: 0.8rem;
+}
+
+/*Estilos contenedor del box*/
+.client-box {
+    min-height: 450px;
 }
 
 /*Estilos del navbar*/
@@ -82,9 +92,9 @@
 }
 
 /*Estilos del footer */
-.custom-footer{
+.custom-footer {
     background-color: var(--primary-green);
-    color:#fff;
+    color: #fff;
 }
 
 
@@ -93,11 +103,33 @@
     justify-content: center;
     align-items: center;
     background-color: white;
-    color: var(--primary-green); /* el mismo que el fondo del footer */
+    color: var(--primary-green);
+    /* el mismo que el fondo del footer */
     width: 40px;
     height: 40px;
     border-radius: 50%;
     text-decoration: none;
     transition: transform 0.2s ease;
     font-size: 1.2rem;
-  }
+}
+
+/*Estilos del paginador*/
+.custom-pagination button {
+    color: #3AAA1A;
+    /* color del texto normal */
+    border: 1px solid #3AAA1A;
+    background-color: white;
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-pagination button:hover {
+    background-color: #3AAA1A;
+    color: white;
+}
+
+.custom-pagination button.active {
+    background-color: #3AAA1A;
+    color: white;
+    border-color: #3AAA1A;
+    font-weight: bold;
+}

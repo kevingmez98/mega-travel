@@ -23,7 +23,6 @@ const getClients = async (conditions = null, limit = null, offset = 0) => {
             limit: limit ? parseInt(limit) : undefined, // Si limit es null, no se aplica
             offset: offset ? parseInt(offset) : 0, // Si offset es null iniciar la búsqueda en 0
         });
-
         return { clients, total };
     } catch (err) {
         throw err;
