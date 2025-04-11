@@ -9,20 +9,26 @@ import { Row, Col } from "react-bootstrap";
 
 const ClientPage = () => {
 
-    const [clients, setClients] = useState([]);
-    const [currentPage, setcurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
+    const [clients, setClients] = useState([]); // Lista de clientes
+    const [currentPage, setcurrentPage] = useState(1); // Pagina actual del paginador
+    const [totalPages, setTotalPages] = useState(1); // Total de paginas del paginador
+    const [loading, setLoading] = useState(true); // estado de carga de la lista
+
     const clientsPerPage = 3;
 
     // Cargar clientes, permite colocar decidir desde que pagina hacerlo
     const loadClients = async (newPage) => {
-        if(newPage){
+        if (newPage) {
             setcurrentPage(newPage);
         }
-        const { success, data, message } = await clientService.getClients(clientsPerPage, (currentPage - 1) * clientsPerPage);
+        setLoading(true);
+
+        const { success, data, message } = await clientService.getClients(clientsPerPage,
+            (currentPage - 1) * clientsPerPage);
+
+        setLoading(false);
         if (!success) {
-            // Swal.fire("Error", message, "error");
-            alert("Error: " + message);
+            Swal.fire("Error", message, "error");
             return;
         }
 
@@ -39,7 +45,17 @@ const ClientPage = () => {
 
     // Crear el cliente, recibe un callback para notificar al componente si fue exitosa la creación
     const createClient = async (dataClient, onSuccessReset) => {
+        // Mostrar alerta de carga
+        Swal.fire({
+            title: "Creando cliente...",
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            },
+        });
         const { success, message } = await clientService.createClient(dataClient);
+
+        Swal.close(); // cerrar loading
         if (success) {
             await loadClients(1); // Recarga lista al registrar
             Swal.fire("¡Éxito!", "Cliente registrado correctamente", "success");
@@ -75,6 +91,7 @@ const ClientPage = () => {
                                 </div>
                             }
                             onReload={loadClients}
+                            loading={loading}
 
                         />
                     </Col>

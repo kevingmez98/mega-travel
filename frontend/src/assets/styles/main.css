@@ -6,6 +6,32 @@
     --bg-light: #f9f9f9;
 }
 
+/*Estilos skeleton de carga*/
+.skeleton {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    animation: pulse 1.5s infinite;
+    height: 1.2em;
+}
+
+.skeleton-text {
+    width: 100%;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 /*Estilos de texto*/
 .green-text {
     color: #5cb22f;
@@ -13,7 +39,7 @@
 
 .text-client td,
 .text-client th {
-  font-size: 0.8rem;
+    font-size: 0.8rem;
 }
 
 /*Estilos contenedor del box*/
@@ -132,4 +158,9 @@
     color: white;
     border-color: #3AAA1A;
     font-weight: bold;
+}
+
+/*Estilos de la tabla */
+.custom-table {
+    min-height: 147px;
 }
