@@ -19,7 +19,7 @@ const getClients = async (conditions = null, limit = null, offset = 0) => {
         });
         const clients = await Client.findAll({
             where: filter,
-            order: [['created_at', 'ASC']], //Organizar por fecha de creación
+            order: [['created_at', 'DESC']], //Organizar por fecha de creación
             limit: limit ? parseInt(limit) : undefined, // Si limit es null, no se aplica
             offset: offset ? parseInt(offset) : 0, // Si offset es null iniciar la búsqueda en 0
         });
